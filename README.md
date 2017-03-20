@@ -12,8 +12,8 @@ Contact: research@cymmetria.com
 # Installation (Ubuntu)
 Honeypot Installation
 ----------------
-apt-get install docker.io
-docker build -t struts_honepot .
+- apt-get install docker.io
+- docker build -t struts_honepot .
 
 Running the Honeypot
 --------------------
@@ -22,15 +22,17 @@ docker run -p 80:80 --name "mystrutspot_docker" -d struts_honepot
 Accessing the logs
 ------------------
 Run 'docker ps' to validate the docker name: "mystrutspot_docker"
+
 Then run 'docker -t -i mystrutspot_docker cat /var/log/apache2/error.log'
 
 # Testing
 Prerequisites
 -------------
-apt-get install python2 python-pip
-pip install requests
+- apt-get install python2 python-pip
+- pip install requests
 
 Then use test-struts2_S2-045.py like below:
+
 Usage: 
 
 ./test-struts2_S2-045.py <url>
