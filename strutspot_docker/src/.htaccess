@@ -1,3 +1,5 @@
 RewriteEngine on
-RewriteRule cover.css cover.css [NC]
-RewriteRule ^(^cover\.css|.*)$ index.php?origurl=$1 [QSA]
+RewriteRule ^cover\.css$ cover.css [END]
+RewriteRule ^apache\.png$ apache.png [END]
+RewriteRule ^struts\.svg$ struts.svg [END]
+RewriteRule ^(.*)$ index.php?origurl=$1 [QSA]
