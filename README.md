@@ -78,3 +78,9 @@ One can use the same python test script as before.
 Important note
 --------------
 This has currently only been tested on Amazon's Ubuntu 16.04 LTS image, but should work on many other platforms (including previous versions of linux/ubuntu).
+
+
+See also
+--------
+Check out our Mirai honeypot (MTPot):
+- https://github.com/Cymmetria/MTPot/
