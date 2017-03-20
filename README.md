@@ -24,18 +24,18 @@ Installation (Ubuntu)
 
 Running the Honeypot
 --------------------
-docker run -p 80:80 --name "mystrutspot_docker" -d struts_honepot
+docker run -p 80:80 --name "mystrutspot_docker" -d struts_honeypot
 
 Accessing the logs
 ------------------
 Run 'docker ps' to validate the docker name: "mystrutspot_docker"
 
-Then run 'docker -t -i mystrutspot_docker cat /var/log/apache2/error.log'
+Then run 'docker exec -t -i mystrutspot_docker cat /var/log/apache2/error.log'
 
 # Testing
 Prerequisites
 -------------
-- apt-get install python2 python-pip
+- apt-get install python2.7 python-pip
 - pip install requests
 
 Then use test-struts2_S2-045.py like below:
