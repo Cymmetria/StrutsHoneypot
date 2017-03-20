@@ -3,13 +3,16 @@ Cymmetria Research, 2017.
 
 http://www.cymmetria.com/
 
-StrutsHoneypot is an Apache 2 based honeypot that includes a seperate detection module (apache mod) for Apache 2 servers that detects and/or blocks the sturts CVE 2017-5638 
-exploit. It is released under the MIT license for the use of the community.  Cymmetria Research, 2017.  http://www.cymmetria.com/
 Written by: Nir Krakowski (@nirkrakowksi), Imri Goldberg (@lorgandon)
 
+Contact: research@cymmetria.com Contact: research@cymmetria.com
 
-Please consider trying out the MazeRunner Community Edition, the free version of our cyber deception platform.  Written by: Nir Krakowski (@nirkrakowksi), Imri Goldberg 
-(@lorgandon) Contact: research@cymmetria.com Contact: research@cymmetria.com
+StrutsHoneypot is an Apache 2 based honeypot that includes a seperate detection module (apache mod) for Apache 2 servers that detects and/or blocks the sturts CVE 2017-5638 
+exploit. It is released under the MIT license for the use of the community.  
+
+
+Please consider trying out the MazeRunner Community Edition, the free version of our cyber deception platform.  
+https://community.cymmetria.com/
 
 # Honeypot Installation, Running and Monitoring
 
@@ -57,7 +60,7 @@ Inside the index.php as <?php code. This code must remain intact, anything else 
 
 # mod_contentrap Installation, and Running
 
-## This is a very simple Apache module implementation filter intended for a linux server with a running Apache2 server.
+### This is a very simple Apache module implementation filter intended for a linux server with a running Apache2 server.
 
 
 Installing
