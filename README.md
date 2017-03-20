@@ -18,8 +18,9 @@ https://community.cymmetria.com/
 
 Installation (Ubuntu)
 ----------------
+- apt-get update
 - apt-get install docker.io
-- docker build -t struts_honepot strutspot_docker/
+- docker build -t struts_honeypot strutspot_docker/
 
 Running the Honeypot
 --------------------
