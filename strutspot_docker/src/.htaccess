@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteRule cover.css cover.css [NC]
+RewriteRule ^(^cover\.css|.*)$ index.php?origurl=$1 [QSA]
