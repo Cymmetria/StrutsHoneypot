@@ -1,7 +1,7 @@
 # StrutsHoneypot
 Cymmetria Research, 2017.
 
-http://www.cymmetria.com/
+https://www.cymmetria.com/
 
 Written by: Nir Krakowski (@nirkrakowksi), Imri Goldberg (@lorgandon)
 
