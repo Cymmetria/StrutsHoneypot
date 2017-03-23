@@ -50,7 +50,7 @@ Detailed Info
 ------------
 The Honeypot uses mod_rewrite (see strutspot_docker/src/.htaccess) RewriteRule directive to redirect all requests to the same url.
 To avoid redirection for cover.css, apache.png, and struts.svg it has seperate rule for it.
-The Honeypot uses error_log() to send a JSON comment containing connection and other data to the 
+The Honeypot uses error_log() to send a JSON comment containing the connection info and other data to the apache default error log file.
 
 Editing the Honeypot Website
 ----------------------------
