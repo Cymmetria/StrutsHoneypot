@@ -15,6 +15,7 @@ Please consider trying out the MazeRunner Community Edition, the free version of
 https://community.cymmetria.com/
 
 # Honeypot Installation, Running and Monitoring
+- Now with added support (Honeypot only) for content disposition filename parsing vulnerability.
 
 Installation (Ubuntu)
 ----------------
@@ -25,6 +26,7 @@ Installation (Ubuntu)
 Running the Honeypot
 --------------------
 docker run -p 80:80 --name "mystrutspot_docker" -d struts_honeypot
+
 
 Accessing the logs
 ------------------
@@ -38,19 +40,28 @@ Prerequisites
 - apt-get install python2.7 python-pip
 - pip install requests
 
-Then use test-struts2_S2-045.py like below:
+Rebuilding the Honeypot
+-----------------------
+docker kill mystrutspot_docker
+docker rm mystrutspot_docker
+docker build -t struts_honeypot strutspot_docker/
+
+Then use test-struts2.py like below:
 
 Usage: 
 
-./test-struts2_S2-045.py <url>
+./test-struts2.py <url>
 
-e.g: ./test-struts2_S2-045.py http://localhost/
+e.g: ./test-struts2.py http://localhost/
+
+- This will test for both vulnerabilities. You should be able to see 
 
 Detailed Info
 ------------
 The Honeypot uses mod_rewrite (see strutspot_docker/src/.htaccess) RewriteRule directive to redirect all requests to the same url.
 To avoid redirection for cover.css, apache.png, and struts.svg it has seperate rule for it.
 The Honeypot uses error_log() to send a JSON comment containing the connection info and other data to the apache default error log file.
+mod_headers is used to avoid default parsing by php for multipart/form-data. so it is modified to mmultipart/form-data before reaching the php parser.
 
 Editing the Honeypot Website
 ----------------------------

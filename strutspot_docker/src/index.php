@@ -1,19 +1,41 @@
 <?php 
 
-$CONTENT_TYPE_REGEX = "(%{|#)";
+$NEVER_USED_NAME_CHARS_REGEX = "/(%{|#)/";
+$CONTENT_TYPE_DISPOSITION_INDICATOR_REGEX = "/multipart\/form-data;\s+?boundary=(.+?)$/";
+$CONTENT_DISPOSITION_PARSING_REGEX_END = "((?!(\r\n\r\n|\n\n)).)*?(\r\n|\n){0,1}Content-Disposition: (.*?)filename *?=(.*?)(\n|\n\n|\r\n|\r\n\r\n)/si";
 
 $hdrs = apache_request_headers();
 
-$ct = ""; $ua = "";
-$match = 0;
+$ct = ""; $ua = ""; $con_disp = "";
+$match = 0; $raw_post_data = "";
 
+//for debugging purposes: print("<!doctype html><html><body><pre>\n");
 //check case insensitive headers.
 foreach ($hdrs as $name => $value) {
 	if ('content-type' == strtolower($name)) {
 		$ct = $hdrs[$name];
-		if (preg_match($CONTENT_TYPE_REGEX, $ct)) {
+		$boundary = "";
+
+		if (preg_match($NEVER_USED_NAME_CHARS_REGEX, $ct)) {
 			$match = 1;
 		}
+		elseif (preg_match($CONTENT_TYPE_DISPOSITION_INDICATOR_REGEX, $ct, $matches)) {
+			$boundary = $matches[1];
+
+			$post_data = file_get_contents("php://input");
+
+			//search for the content disposition header,and look for the filename= field.
+			// if it exists, check the validity of the name.
+			if (preg_match_all("/" . $boundary . $CONTENT_DISPOSITION_PARSING_REGEX_END, $post_data, $matches)) {
+				foreach ($matches[5] as $cd) {
+					if (preg_match($NEVER_USED_NAME_CHARS_REGEX, $cd)) {
+						$match = 1;
+						$con_disp = $cd;
+					}
+				}
+			}
+		}
+
 	}
 	elseif ('user-agent' == strtolower($name)) {
 		$ua = $hdrs[$name];
@@ -23,13 +45,15 @@ foreach ($hdrs as $name => $value) {
 if ($match == 1) {
 	//create log JSON
 	$marr = [ "src" => $_SERVER['REMOTE_ADDR'] , "sport" => $_SERVER['REMOTE_PORT'], "dst" => $_SERVER['SERVER_NAME'], "dport" => $_SERVER['SERVER_PORT'],
-		"uri" => $_SERVER['REQUEST_URI'], "method" => $_SERVER['REQUEST_METHOD'], "ua" => $ua, "ctype" => $ct, ];
+		"uri" => $_SERVER['REQUEST_URI'], "method" => $_SERVER['REQUEST_METHOD'], "ua" => $ua, "ctype" => $ct, "cdisposition" => $con_disp];
 
 	//encode as JSON
 	$msg = json_encode($marr);
 	//send to apache/php default error log
 	error_log($msg);
 }
+//for debugging purposes: print("</pre></body></html>\n");
+//exit(0);
 ?>
 
 <!doctype html>
